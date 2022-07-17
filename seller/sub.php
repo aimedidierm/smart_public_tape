@@ -33,7 +33,7 @@ require 'php-includes/check-login.php';
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Subscription</h1>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -53,7 +53,7 @@ require 'php-includes/check-login.php';
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
     <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
