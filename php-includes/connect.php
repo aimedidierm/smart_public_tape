@@ -1,6 +1,6 @@
 <?php
 define('DB_USER', 'aimedidierm');
-define('DB_PASS', 'MUgisha@123');
+define('DB_PASS', 'MUdidier@123');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'spt');
 
