@@ -43,7 +43,7 @@ if ($apassword == $cpassword){
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Seller - dashboard</title>
+    <title>Seller - settings</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
