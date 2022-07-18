@@ -1,6 +1,27 @@
 <?php
 require '../php-includes/connect.php';
 require 'php-includes/check-login.php';
+$query = "SELECT * FROM seller WHERE email= ? limit 1";
+$stmt = $db->prepare($query);
+$stmt->execute(array($_SESSION['email']));
+$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($stmt->rowCount()>0) {
+    $balance=$rows['balance'];
+    $s_id=$rows['id'];
+}
+if(isset($_POST['update'])){
+    $amount=$_POST['amount'];
+    if ($amount <= $balance){
+        $sql ="INSERT INTO pending_withdraw (seller, amount) VALUES (?,?)";
+        $stm = $db->prepare($sql);
+        if ($stm->execute(array($s_id, $amount))) {
+            print "<script>alert('Your withdraw request send');window.location.assign('withdraw.php')</script>";
+    
+        }
+    } else{
+        echo "<script>alert('Low balance');window.location.assign('withdraw.php')</script>";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +54,31 @@ require 'php-includes/check-login.php';
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Subscription</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Request withdarw</h1>
+
+                    <div class="row">
+                    <div class="row">
+
+<div class="col-lg-12">
+
+    <!-- Circle Buttons -->
+    <div class="card shadow mb-6">
+        <form method="post">
+        <div class="card-header py-6">
+            <h6 class="m-0 font-weight-bold text-primary">You can request withdraw</h6>
+        </div>
+        <div class="card-body">
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Amount:</span>
+            <input type="text" style="width:350px;" class="form-control" name="amount">
+        </div>
+        <button type="submit" class="btn btn-facebook btn-block" name="update">Request</button>
+        </div>
+        </form>
+    </div>
+
+</div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->

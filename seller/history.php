@@ -23,6 +23,8 @@ require 'php-includes/check-login.php';
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -34,7 +36,59 @@ require 'php-includes/check-login.php';
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">History</h1>
-
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <?php
+                                        $sql = "SELECT * FROM seller WHERE email = ?";
+                                        $stmt = $db->prepare($sql);
+                                        $stmt->execute(array($_SESSION['email']));
+                                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        $myid = $row['id'];
+                                        $sql = "SELECT * FROM transactions WHERE seller = ?";
+                                        $stmt = $db->prepare($sql);
+                                        $stmt->execute(array($myid));
+                                        if ($stmt->rowCount() > 0) {
+                                            $count = 1;
+                                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                            ?>
+                                        <tr>
+                                            <td><?php print $count?></td>
+                                            <td><?php print $row['debit']?></td>
+                                            <td><?php print $row['credit']?></td>
+                                            <td><?php print $row['time']?></td>
+                                        </tr>
+                                        <?php
+                                        $count++;
+                                        }
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.container-fluid -->
 
@@ -63,6 +117,12 @@ require 'php-includes/check-login.php';
 
     <!-- Custom scripts for all pages-->
     <script src="../js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
 
 </body>
 

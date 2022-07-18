@@ -1,0 +1,119 @@
+<?php
+require '../php-includes/connect.php';
+require 'php-includes/check-login.php';
+if(isset($_POST['update'])){
+$money=$_POST['money'];
+$phone=$_POST['phone'];
+$names=$_POST['names'];
+$card=$_POST['card'];
+$sql ="INSERT INTO sub (amount,money,user,) VALUES (?,?)";
+$stm = $db->prepare($sql);
+if ($stm->execute(array($uaddress, $uphone, $cpassword, $_SESSION['email']))) {
+    print "<script>alert('your data updated');window.location.assign('settings.php')</script>";
+
+    }
+} else{
+echo "<script>alert('Passwords are not match');window.location.assign('settings.php')</script>";
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Seller - dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+        <?php require 'php-includes/menu.php';?>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-4 text-gray-800">Subscription</h1>
+
+                    <div class="row">
+                    <div class="row">
+
+<div class="col-lg-12">
+
+    <!-- Circle Buttons -->
+    <div class="card shadow mb-6">
+        <form method="post">
+        <div class="card-header py-6">
+            <h6 class="m-0 font-weight-bold text-primary">The the user details</h6>
+        </div>
+        <div class="card-body">
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Card:</span>
+            <input type="text" style="width:350px;" class="form-control" name="card">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Your names:</span>
+            <input type="text" style="width:350px;" class="form-control" name="names">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Money:</span>
+            <input type="number" style="width:350px;" class="form-control" name="money" required>
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Phone:</span>
+            <input type="text" style="width:350px;" class="form-control" name="phone">
+        </div>
+        <button type="submit" class="btn btn-facebook btn-block" name="update">Send</button>
+        </div>
+        </form>
+    </div>
+
+</div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <?php require 'php-includes/footer.php'; ?>
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

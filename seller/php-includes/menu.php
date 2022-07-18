@@ -29,9 +29,9 @@ $names=$row['names'];
             <span>Dashboard</span></a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="sub.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Subscription</span></a>
+        <a class="nav-link" href="withdraw.php">
+            <i class="fas fa-fw fa-dollar-sign"></i>
+            <span>Withdraw</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="history.php">

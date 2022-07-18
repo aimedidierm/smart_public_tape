@@ -1,6 +1,36 @@
 <?php
 require '../php-includes/connect.php';
 require 'php-includes/check-login.php';
+$query = "SELECT * FROM seller WHERE email= ? limit 1";
+$stmt = $db->prepare($query);
+$stmt->execute(array($_SESSION['email']));
+$rows = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($stmt->rowCount()>0) {
+    $names=$rows['names'];
+    $email=$rows['email'];
+    $address=$rows['address'];
+    $phone=$rows['phone'];
+}
+if(isset($_POST['update'])){
+$uaddress=$_POST['address'];
+$uphone=$_POST['phone'];
+$cpassword=md5($_POST['cpassword']);
+$apassword=md5($_POST['apassword']);
+if ($apassword == $cpassword){
+    if($apassword == $cpassword){
+        $sql ="UPDATE seller SET address = ?, phone = ? , password = ? WHERE email = ? limit 1";
+        $stm = $db->prepare($sql);
+        if ($stm->execute(array($uaddress, $uphone, $cpassword, $_SESSION['email']))) {
+            print "<script>alert('your data updated');window.location.assign('settings.php')</script>";
+
+            }
+    } else{
+        echo "<script>alert('Passwords are not match');window.location.assign('settings.php')</script>";
+    }
+} else{
+    echo "<script>alert('Passwords are not match');window.location.assign('account.php')</script>";
+}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +64,50 @@ require 'php-includes/check-login.php';
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-4 text-gray-800">Settings</h1>
+
+                    <div class="row">
+                    <div class="row">
+
+<div class="col-lg-12">
+
+    <!-- Circle Buttons -->
+    <div class="card shadow mb-6">
+        <form method="post">
+        <div class="card-header py-6">
+            <h6 class="m-0 font-weight-bold text-primary">You can update your details</h6>
+        </div>
+        <div class="card-body">
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Names:</span>
+            <input type="text" style="width:350px;" class="form-control" name="names" value="<?php echo $names;?>" disabled>
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Email:</span>
+            <input type="text" style="width:350px;" class="form-control" name="email" value="<?php echo $email;?>" disabled>
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Phone:</span>
+            <input type="text" style="width:350px;" class="form-control" name="phone" value="<?php echo $phone; ?>">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Address:</span>
+            <input type="text" style="width:350px;" class="form-control" name="address" value="<?php echo $address; ?>">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Password:</span>
+            <input type="password" style="width:350px;" class="form-control" name="apassword" required>
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Confirm password:</span>
+            <input type="password" style="width:350px;" class="form-control" name="cpassword" required>
+        </div>
+        <button type="submit" class="btn btn-facebook btn-block" name="update">Update</button>
+        </div>
+        </form>
+    </div>
+
+</div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
