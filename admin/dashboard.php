@@ -4,6 +4,26 @@ ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
 require '../php-includes/connect.php';
 require 'php-includes/check-login.php';
+$sql = "SELECT * FROM transactions";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$trans=$stmt->rowCount();
+
+$sql = "SELECT SUM(debit) FROM transactions";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$sellers=$row['SUM(debit)'];
+
+$sql = "SELECT * FROM user";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$users=$stmt->rowCount();
+
+$sql = "SELECT * FROM sub";
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$subs=$stmt->rowCount();
 ?>
 <!DOCTYPE html>
 <html lang="en">
