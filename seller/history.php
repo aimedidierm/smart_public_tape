@@ -45,7 +45,7 @@ require 'php-includes/check-login.php';
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>N</th>
                                             <th>Debit</th>
                                             <th>Credit</th>
                                             <th>Time</th>
@@ -53,7 +53,7 @@ require 'php-includes/check-login.php';
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
+                                            <th>N</th>
                                             <th>Debit</th>
                                             <th>Credit</th>
                                             <th>Time</th>
