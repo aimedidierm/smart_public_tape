@@ -56,7 +56,7 @@ $names=$row['names'];
     <li class="nav-item">
         <a class="nav-link" href="withdraw.php">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Withdraw</span></a>
+            <span>Pending withdraw</span></a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="money_to_user.php">
