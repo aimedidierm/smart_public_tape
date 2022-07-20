@@ -1,19 +1,29 @@
 <?php
 require '../php-includes/connect.php';
 require 'php-includes/check-login.php';
-if(isset($_POST['update'])){
-$money=$_POST['money'];
-$phone=$_POST['phone'];
-$names=$_POST['names'];
-$card=$_POST['card'];
-$sql ="INSERT INTO sub (amount,money,user,) VALUES (?,?)";
-$stm = $db->prepare($sql);
-if ($stm->execute(array($uaddress, $uphone, $cpassword, $_SESSION['email']))) {
-    print "<script>alert('your data updated');window.location.assign('settings.php')</script>";
+if(isset($_POST['send'])){
+    $useemail=$_POST['email'];
+    $useramount=$_POST['amount'];
+    $query = "SELECT * FROM user WHERE email= ? limit 1";
+    $stmt = $db->prepare($query);
+    $stmt->execute(array($useemail));
+    $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($stmt->rowCount()>0) {
+    $userid=$rows['id'];
+    //code to calculate price
+    $totalamount=$useramount/20;
+    //-----------------------
+    $sql ="INSERT INTO sub (amount,money,user) VALUES (?,?,?)";
+    $stm = $db->prepare($sql);
+    if ($stm->execute(array($totalamount,$useramount,$userid))) {
+        print "<script>alert('Comfirmed');window.location.assign('sub.php')</script>";
 
-    }
-} else{
-echo "<script>alert('Passwords are not match');window.location.assign('settings.php')</script>";
+    } else {
+    print "<script>alert('Fail');window.location.assign('sub.php')</script>";
+}
+}else {
+    print "<script>alert('User not found');window.location.assign('sub.php')</script>";
+}
 }
 ?>
 <!DOCTYPE html>
@@ -27,7 +37,7 @@ echo "<script>alert('Passwords are not match');window.location.assign('settings.
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Seller - dashboard</title>
+    <title>Admin - subscription</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -47,7 +57,7 @@ echo "<script>alert('Passwords are not match');window.location.assign('settings.
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Subscription</h1>
+                    <h1 class="h3 mb-4 text-gray-800">Add subscription</h1>
 
                     <div class="row">
                     <div class="row">
@@ -58,26 +68,18 @@ echo "<script>alert('Passwords are not match');window.location.assign('settings.
     <div class="card shadow mb-6">
         <form method="post">
         <div class="card-header py-6">
-            <h6 class="m-0 font-weight-bold text-primary">The the user details</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Add details below</h6>
         </div>
         <div class="card-body">
         <div class="form-group input-group">
-            <span class="input-group-addon" style="width:150px;">Card:</span>
-            <input type="text" style="width:350px;" class="form-control" name="card">
+            <span class="input-group-addon" style="width:150px;">User email:</span>
+            <input type="text" style="width:350px;" class="form-control" name="email">
         </div>
         <div class="form-group input-group">
-            <span class="input-group-addon" style="width:150px;">Your names:</span>
-            <input type="text" style="width:350px;" class="form-control" name="names">
+            <span class="input-group-addon" style="width:150px;">Amount:</span>
+            <input type="text" style="width:350px;" class="form-control" name="amount">
         </div>
-        <div class="form-group input-group">
-            <span class="input-group-addon" style="width:150px;">Money:</span>
-            <input type="number" style="width:350px;" class="form-control" name="money" required>
-        </div>
-        <div class="form-group input-group">
-            <span class="input-group-addon" style="width:150px;">Phone:</span>
-            <input type="text" style="width:350px;" class="form-control" name="phone">
-        </div>
-        <button type="submit" class="btn btn-facebook btn-block" name="update">Send</button>
+        <button type="submit" class="btn btn-facebook btn-block" name="send">Send money</button>
         </div>
         </form>
     </div>
