@@ -11,7 +11,13 @@ if(isset($_POST['send'])){
     if ($stmt->rowCount()>0) {
     $userid=$rows['id'];
     //code to calculate price
-    $totalamount=$useramount/20;
+    $query = "SELECT * FROM price limit 1";
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+    $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+    $getamount = $rows['price'];
+
+    $totalamount=$useramount/$getamount;
     //-----------------------
     $sql ="INSERT INTO sub (amount,money,user) VALUES (?,?,?)";
     $stm = $db->prepare($sql);

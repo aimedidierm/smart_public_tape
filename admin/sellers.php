@@ -4,6 +4,21 @@ require 'php-includes/check-login.php';
 ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
+if(isset($_POST['save'])){
+    $names=$_POST['names'];
+    $email=$_POST['email'];
+    $phone=$_POST['phone'];
+    $address=$_POST['address'];
+    $password=md5($_POST['password']);
+    $sql ="INSERT INTO seller (email,names,phone,address,password) VALUES (?,?,?,?,?)";
+    $stm = $db->prepare($sql);
+    if ($stm->execute(array($email,$names,$phone,$address,$password))) {
+        print "<script>alert('Seller added');window.location.assign('sellers.php')</script>";
+
+    } else{
+        echo "<script>alert('Error! try again');window.location.assign('sellers.php')</script>";
+}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,9 +126,45 @@ error_reporting(E_ALL);
                     </div>
                 </div>
                 <!-- /.container-fluid -->
+                
 
             </div>
             <!-- End of Main Content -->
+            <div class="col-lg-8">
+
+    <!-- Circle Buttons -->
+    <div class="card shadow mb-6">
+        <form method="post">
+        <div class="card-header py-6">
+            <h6 class="m-0 font-weight-bold text-primary">Add seller</h6>
+        </div>
+        <div class="card-body">
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Names:</span>
+            <input type="text" style="width:350px;" class="form-control" name="names">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Email:</span>
+            <input type="email" style="width:350px;" class="form-control" name="email">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Phone:</span>
+            <input type="text" style="width:350px;" class="form-control" name="phone">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Address:</span>
+            <input type="text" style="width:350px;" class="form-control" name="address">
+        </div>
+        <div class="form-group input-group">
+            <span class="input-group-addon" style="width:150px;">Password:</span>
+            <input type="password" style="width:350px;" class="form-control" name="password">
+        </div>
+        <button type="submit" class="btn btn-facebook btn-block" name="save">Add seller</button>
+        </div>
+        </form>
+    </div>
+
+</div>
 
             <?php require '../seller/php-includes/footer.php'; ?>
 
