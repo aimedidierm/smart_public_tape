@@ -44,7 +44,6 @@ $names=$row['names'];
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="sellers.php">Sellers</a>
                 <a class="collapse-item" href="users.php">Users</a>
-                <a class="collapse-item" href="machines.php">Machines</a>
             </div>
         </div>
     </li>

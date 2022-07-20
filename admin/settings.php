@@ -1,6 +1,9 @@
 <?php
 require '../php-includes/connect.php';
 require 'php-includes/check-login.php';
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(E_ALL);
 $query = "SELECT * FROM admin WHERE email= ? limit 1";
 $stmt = $db->prepare($query);
 $stmt->execute(array($_SESSION['email']));
@@ -115,11 +118,10 @@ if ($apassword == $cpassword){
             </div>
             <!-- End of Main Content -->
 
-            <?php require 'php-includes/footer.php'; ?>
 
         </div>
         <!-- End of Content Wrapper -->
-
+        <?php require '../seller/php-includes/footer.php'; ?>
     </div>
     <!-- End of Page Wrapper -->
 

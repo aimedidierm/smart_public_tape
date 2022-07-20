@@ -105,11 +105,9 @@ if(isset($_POST['send'])){
             </div>
             <!-- End of Main Content -->
 
-            <?php require 'php-includes/footer.php'; ?>
-
         </div>
         <!-- End of Content Wrapper -->
-
+        <?php require '../seller/php-includes/footer.php'; ?>
     </div>
     <!-- End of Page Wrapper -->
 
