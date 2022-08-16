@@ -1,4 +1,4 @@
-//#include <ArduinoJson.h>
+#include <ArduinoJson.h>
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Wire.h> 
@@ -152,7 +152,7 @@ void momo(){
           //int outml = root["outml"];
           int outml=0;
           if(outml==0){
-            outml=50;
+            outml=500;
             drinkvolume=outml;
              drinkout();
             //lowbalance();
@@ -264,14 +264,17 @@ void kwishyura(){
     kwishyuraamount=newNum;
     lcd.clear();
     lcd.print("Tegereza");
-    //Serial.println(phone); //kohereza data kurinodemcu
+    delay(2000);
+    lcd.clear();
+    lcd.print(newNum);
+    delay(2000);
+//Serial.println(phone); //kohereza data kurinodemcu
     while(k==0){
       if (Serial.available() > 0) {
         //kwakira data zivuye kuri node mcu na server
-      //DynamicJsonBuffer jsonBuffer;
-      //JsonObject& root = jsonBuffer.parseObject(Serial.readStringUntil('\n'));
-      //int outml = root["outml"];
-      int outml=50;
+      DynamicJsonBuffer jsonBuffer;
+      JsonObject& root = jsonBuffer.parseObject(Serial.readStringUntil('\n'));
+      int outml = root["outml"];
       if(outml==0){
         lowbalance();
         } else{

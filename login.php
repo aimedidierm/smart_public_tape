@@ -15,7 +15,7 @@ if ($stmt->rowCount()>0) {
 	$_SESSION['id'] = session_id();
 	$_SESSION['login_type'] = "seller";
 
-	echo "<script>alert('You Are Logged In');window.location.assign('seller/dashboard.php')</script>";
+	echo "<script>window.location.assign('seller/dashboard.php')</script>";
 }
 
 
@@ -28,7 +28,7 @@ if ($stmt->rowCount()>0) {
 	$_SESSION['id'] = session_id();
 	$_SESSION['login_type'] = "admin";
 
-	echo "<script>alert('You Are Logged In');window.location.assign('admin/dashboard.php')</script>";
+	echo "<script>window.location.assign('admin/dashboard.php')</script>";
 }else{
 	echo "<script>alert('Your ID or Password is Wrong');window.location.assign('index.php')</script>";
 }
