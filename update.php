@@ -3,6 +3,7 @@ ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
 require 'php-includes/connect.php';
+$sellerid=1;
 if(isset($_POST['kwishyura'])){
     $card = $_POST['kwishyura'];
     $amount = $_POST['amount'];
@@ -27,6 +28,17 @@ if(isset($_POST['kwishyura'])){
                 $sql ="INSERT INTO transactions (credit,user) VALUES (?,?)";
                 $stm = $db->prepare($sql);
                 $stm->execute(array($amount,$user));
+                
+                $query = "SELECT balance FROM seller WHERE id = ? limit 1";
+                $stmt = $db->prepare($query);
+                $stmt->execute(array($sellerid));
+                $rows = $stmt->fetch(PDO::FETCH_ASSOC);
+                $sebal=$rows['balance'];
+                $newselbal=$sebal+$amount;
+                $sql ="UPDATE seller SET balance = ? WHERE id = ? limit 1";
+                $stm = $db->prepare($sql);
+                $stm->execute(array($newselbal,$sellerid));
+
                 $data = array('outml' =>$mount); 
                 echo $response = json_encode($data);
             }
