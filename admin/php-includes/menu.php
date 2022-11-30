@@ -48,6 +48,20 @@ $names=$row['names'];
         </div>
     </li>
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitie"
+            aria-expanded="true" aria-controls="collapseUtilitie">
+            <i class="fas fa-fw fa-table"></i>
+            <span>History</span>
+        </a>
+        <div id="collapseUtilitie" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="shistory.php">Sellers</a>
+                <a class="collapse-item" href="uhistory.php">Users</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" href="sub.php">
             <i class="fas fa-fw fa-calendar"></i>
             <span>Subscription</span></a>

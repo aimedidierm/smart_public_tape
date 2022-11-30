@@ -17,8 +17,6 @@ if ($stmt->rowCount()>0) {
 
 	echo "<script>window.location.assign('seller/dashboard.php')</script>";
 }
-
-
 $query = "SELECT * FROM admin WHERE email= ? AND password = ? limit 1";
 $stmt = $db->prepare($query);
 $stmt->execute(array($email, $password));

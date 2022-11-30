@@ -42,6 +42,7 @@ char keys[ROWS][COLS] = {
 byte rowPins[ROWS] = {A0, A1, A2, A3}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {9, 8, 7}; //connect to the column pinouts of the keypad
 
+String card;
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 
 int drink=0,drinkvolume=0,phone=0,amount=0,kwiyaboneshaamount=0,kwishyuraamount=0;
@@ -143,25 +144,24 @@ void momo(){
         amount=newNum;
         lcd.clear();
         lcd.print("Tegereza");
-        //Serial.println(phone); //kohereza data kurinodemcu
-        while(k==0){
+        delay(10000);
+        //Serial.println((String)"?phone="+phone+"&amount="+amount); //kohereza data kurinodemcu
+        //while(k==0){
           //if (Serial.available() > 0) {
-            //kwakira data zivuye kuri node mcu na server
           //DynamicJsonBuffer jsonBuffer;
           //JsonObject& root = jsonBuffer.parseObject(Serial.readStringUntil('\n'));
+          //if (root["outml"]) {
           //int outml = root["outml"];
-          int outml=0;
-          if(outml==0){
-            outml=500;
-            drinkvolume=outml;
-             drinkout();
-            //lowbalance();
+          int outml=800;
+          if(outml==1){
+            lowbalance();
             } else{
               drinkvolume=outml;
               drinkout();
               }
           //}
-          }
+          //}
+          //}
         }
         delay(100);
         }
@@ -174,6 +174,7 @@ void(* resetFunc) (void) = 0;
 
 void drinkout(){
     digitalWrite(Valve, LOW);
+    drinkvolume=800;
     while(drinkvolume>20){
       if((millis() - oldTime) > 1000)    // Only process counters once per second
   { 
@@ -186,9 +187,9 @@ void drinkout(){
     unsigned int frac;
     lcd.clear();
     lcd.setCursor(0,0);
-    lcd.print("Thank you!");
-    lcd.setCursor(0,1);
-    lcd.print(drinkvolume);
+    lcd.print("Murakoze!");
+    //lcd.setCursor(0,1);
+    //lcd.print(drinkvolume);
     pulseCount = 0;
     attachInterrupt(Interrupt, pulseCounter, FALLING);
   }
@@ -227,7 +228,7 @@ void readcard(){
      content.concat(String(mfrc522.uid.uidByte[i], HEX));
   }
   content.toUpperCase();
-  String card=content.substring(1);
+  card=content.substring(1);
   for( int d=2; d>1;d++){
   lcd.clear();
   lcd.setCursor(0,0);
@@ -267,22 +268,24 @@ void kwishyura(){
     delay(2000);
     lcd.clear();
     lcd.print(newNum);
-    delay(2000);
-//Serial.println(phone); //kohereza data kurinodemcu
-    while(k==0){
-      if (Serial.available() > 0) {
-        //kwakira data zivuye kuri node mcu na server
-      DynamicJsonBuffer jsonBuffer;
-      JsonObject& root = jsonBuffer.parseObject(Serial.readStringUntil('\n'));
-      int outml = root["outml"];
-      if(outml==0){
-        lowbalance();
-        } else{
-          drinkvolume=outml;
-          drinkout();
-          }
-      }
-      }
+    delay(10000);
+//Serial.println((String)"?card="+card+"&kwishyuraamount="+kwishyuraamount); //kohereza data kurinodemcu
+    //while(k==0){
+          //if (Serial.available() > 0) {
+          //DynamicJsonBuffer jsonBuffer;
+          //JsonObject& root = jsonBuffer.parseObject(Serial.readStringUntil('\n'));
+          //if (root["outml"]) {
+          //int outml = root["outml"];
+          int outml=800;
+          if(outml==1){
+            lowbalance();
+            } else{
+              drinkvolume=outml;
+              drinkout();
+              }
+          //}
+          //}
+          //}
     }
     delay(100);
     }
@@ -307,22 +310,24 @@ void kwiyabonesha(){
     kwiyaboneshaamount=newNum;
     lcd.clear();
     lcd.print("Tegereza");
-    //Serial.println(phone); //kohereza data kurinodemcu
-    while(k==0){
-      if (Serial.available() > 0) {
-        //kwakira data zivuye kuri node mcu na server
-      //DynamicJsonBuffer jsonBuffer;
-      //JsonObject& root = jsonBuffer.parseObject(Serial.readStringUntil('\n'));
-      //int outml = root["outml"];
-      int outml=50;
-      if(outml==0){
-        lowbalance();
-        } else{
-          drinkvolume=outml;
-          drinkout();
-          }
-      }
-      }
+    delay(10000);
+ //   Serial.println((String)"?card="+card+"&kwiyaboneshaamount="+kwiyaboneshaamount); //kohereza data kurinodemcu
+    //while(k==0){
+          //if (Serial.available() > 0) {
+          //DynamicJsonBuffer jsonBuffer;
+          //JsonObject& root = jsonBuffer.parseObject(Serial.readStringUntil('\n'));
+          //if (root["outml"]) {
+          //int outml = root["outml"];
+          int outml=800;
+          if(outml==1){
+            lowbalance();
+            } else{
+              drinkvolume=outml;
+              drinkout();
+              }
+          //}
+          //}
+          //}
     }
     delay(100);
     }
