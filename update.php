@@ -82,5 +82,6 @@ if(isset($_POST['phone'])){
     //$amount = $_POST['amount'];
     $phone = 250788750979;
     $amount = 100;
+    
 }
 ?>
