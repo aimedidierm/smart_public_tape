@@ -141,25 +141,25 @@ void momo() {
           j = 0;
           lcd.clear();
           lcd.print("Tegereza");
-          Serial.println("?phone=0788&amount=100");
+          Serial.println("{'phone':'07835', 'amount': 100}");
           //Serial.println((String)"?phone=" + newNum + "&amount=" + amount); //kohereza data kurinodemcu
-          while (true) {
+          while (k == 0) {
             if (Serial.available() > 0) {
               data = Serial.readStringUntil('\n');
-              Serial.println(data);
+              //Serial.println(data);
               DynamicJsonBuffer jsonBuffer;
               JsonObject& root = jsonBuffer.parseObject(data);
               if (root["outml"]) {
                 outml = root["outml"];
                 if (outml == 1) {
                   lowbalance();
-                  break;
                 } else {
                   drinkvolume = outml;
                   drinkout();
                 }
               }
             }
+            //delay(10000);
           }
         }
         delay(100);
