@@ -38,9 +38,25 @@ void loop() {
       String data = Serial.readStringUntil('\n');
       DynamicJsonBuffer jsonBuffer;
       JsonObject& root = jsonBuffer.parseObject(data);
+      String serverPath = serverName;
+      
+      if(root["phone"]){
       String phone = root["phone"];
       int amount = root["amount"];
       String serverPath = serverName + "?phone=" + phone + "&amount=" + amount;
+      }
+      
+      if(root["kwishyuraamount"]){
+      String card = root["card"];
+      int kwishyuraamount = root["kwishyuraamount"];
+      String serverPath = serverName + "?card=" + card + "&kwishyuraamount=" + kwishyuraamount;
+      }
+
+      if(root["kwishyuraamount"]){
+      String card = root["card"];
+      int kwiyaboneshaamount = root["kwiyaboneshaamount"];
+      String serverPath = serverName + "?card=" + card + "&kwiyaboneshaamount=" + kwiyaboneshaamount;
+      }
       Serial.println(serverPath);
       
       // Your Domain name with URL path or IP address with path

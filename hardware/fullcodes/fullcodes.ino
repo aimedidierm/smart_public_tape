@@ -141,8 +141,9 @@ void momo() {
           j = 0;
           lcd.clear();
           lcd.print("Tegereza");
-          Serial.println("{'phone':'07835', 'amount': 100}");
+          //Serial.println("{'phone':'07835', 'amount': 100}");
           //Serial.println((String)"?phone=" + newNum + "&amount=" + amount); //kohereza data kurinodemcu
+          Serial.println("{'phone':'" + newNum + "', 'amount':" + amount + "}");
           while (k == 0) {
             if (Serial.available() > 0) {
               data = Serial.readStringUntil('\n');
@@ -262,8 +263,11 @@ void kwishyura() {
       j = 0;
       lcd.clear();
       lcd.print("Tegereza");
-      card.replace(" ", "");
-      Serial.println((String)"?card=" + card + "&kwishyuraamount=" + kwishyuraamount); //kohereza data kurinodemcu
+      //card.replace(" ", "");
+      //Serial.println((String)"?card=" + card + "&kwishyuraamount=" + kwishyuraamount); //kohereza data kurinodemcu
+      //Serial.println("{'phone':'07835', 'amount': 100}");
+      //Serial.println((String)"?phone=" + newNum + "&amount=" + amount); //kohereza data kurinodemcu
+      Serial.println("{'card':'" + card + "', 'kwishyuraamount':" + kwishyuraamount + "}");
       while (k == 0) {
         if (Serial.available() > 0) {
           data = Serial.readStringUntil('\n');
@@ -304,7 +308,8 @@ void kwiyabonesha() {
       j = 0;
       lcd.clear();
       lcd.print("Tegereza");
-      Serial.println((String)"?card=" + card + "&kwiyaboneshaamount=" + kwiyaboneshaamount); //kohereza data kurinodemcu
+      //Serial.println((String)"?card=" + card + "&kwiyaboneshaamount=" + kwiyaboneshaamount); //kohereza data kurinodemcu
+      Serial.println("{'card':'" + card + "', 'kwiyaboneshaamount':" + kwiyaboneshaamount + "}");
       while (k == 0) {
         if (Serial.available() > 0) {
           data = Serial.readStringUntil('\n');

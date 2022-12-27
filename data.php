@@ -46,8 +46,10 @@ if(isset($_REQUEST['kwiyaboneshaamount'])){
 }
 if(isset($_REQUEST['kwishyuraamount'])){
     $amount = floatval($_REQUEST['kwishyuraamount']);
-    $card = str_replace( " ", "", $_REQUEST['card']);
-    $query = "SELECT balance,id FROM user WHERE   REPLACE(`card`, '\t', '' ) = ? limit 1";
+    //$card = str_replace( " ", "", $_REQUEST['card']);
+    $card = $_REQUEST['card'];
+    //$query = "SELECT balance,id FROM user WHERE   REPLACE(`card`, '\t', '' ) = ? limit 1";
+    $query = "SELECT balance,id FROM user WHERE card = ? limit 1";
     $stmt = $db->prepare($query);
     $stmt->execute(array($card));
     $rows = $stmt->fetch(PDO::FETCH_ASSOC);//print_r($rows);die("");
